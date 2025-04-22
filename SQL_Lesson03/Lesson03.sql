@@ -31,3 +31,29 @@ from [dbo].[Book]
 
 
 -- Truy vấn con(Sub query)
+
+-- đếm số lượng sách theo dạnh mục
+--C1: cách join
+SELECT Category.CategoryName,COUNT(Book.BookId) AS SL FROM Category
+LEFT JOIN Book ON Book.CategoryId = Category.CategoryId
+GROUP BY Category.CategoryName
+-- C2: Subquery
+SELECT CategoryName,(SELECT COUNT(*) FROM Book WHERE CategoryId = Category.CategoryId) AS SL 
+FROM Category
+-- C3: Subquery và join
+--SELECT CategoryId, COUNT(*) AS SL FROM Book GROUP BY CategoryId
+
+SELECT C.CategoryName,ISNULL(B.SL,0) FROM Category C
+LEFT JOIN (SELECT CategoryId, COUNT(*) AS SL FROM Book GROUP BY CategoryId) AS B
+ON  B.CategoryId = C.CategoryId
+
+
+-- Sử dụng tham số để truy vấn
+DECLARE @search nvarchar(255)
+SET @search = 'shin'
+SET @search = '%' + @search + '%'
+select * from Book WHERE Title like @search
+
+
+
+
