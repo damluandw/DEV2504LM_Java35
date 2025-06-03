@@ -46,33 +46,67 @@ public class Main {
 //        }
 
 
-        SortedSet<String> str = new TreeSet<String>();
-        str.add("a");
-        str.add("d");
-        str.add("e");
-        str.add("c");
-        str.add("b");
-//        Collections.sort(str,new ComparatorStr());
-        for(String s: str){
-            System.out.println(s);
-        }
+//        SortedSet<String> str = new TreeSet<String>();
+//        str.add("a");
+//        str.add("d");
+//        str.add("e");
+//        str.add("c");
+//        str.add("b");
+////        Collections.sort(str,new ComparatorStr());
+//        for(String s: str){
+//            System.out.println(s);
+//        }
 
 
 //        HashSet - TreeSet - LinkedHashSet
 //        List - ArrayList - LinkedList -
 //                Queue - - - - -
 //                Map HashMap - TreeMap - LinkedHashMap
+        SortedSet<String> sortSet = new TreeSet<String>(new StrComparator());
+        sortSet.add("A");
+        sortSet.add("B");
+        sortSet.add("C");
+        sortSet.add("D");
+        sortSet.add("E");
+        sortSet.add("F");
+        sortSet.add("G");
+        sortSet.add("H");
+
+        for (String str :sortSet ){
+            System.out.println(str);
+        }
+
+        SortedSet<Student> sortStudent = new TreeSet<Student>(new StudentComparator());
+
+
+        sortStudent.add(new Student(1,"C", 30));
+        sortStudent.add(new Student(4,"A", 10));
+        sortStudent.add(new Student(2,"D", 40));
+        sortStudent.add(new Student(3,"E", 50));
+        sortStudent.add(new Student(5,"B", 20));
+
+        for (Student student : sortStudent){
+            System.out.println(student.toString());
+        }
     }
 }
-//
-//     class ComparatorStr implements Comparator<String> {
-//         @Override
-//         public int compare(String o1, String o2) {
-//             if (o1.compareTo(o2) <0) {
-//                 return o1.compareTo(o2);
-//             } else {
-//                 return o2.compareTo(o1);
-//             }
-//         }
 
-//}
+class StrComparator implements Comparator<String> {
+
+    @Override
+    public int compare(String o1, String o2) {
+        // sort student's name by ASC
+        return o2.compareTo(o1);
+    }
+
+}
+
+class StudentComparator implements Comparator<Student> {
+    @Override
+    public int compare(Student o1, Student o2) {
+        // sort student's name by ASC
+        return  o2.getAge()- o1.getAge();
+        //
+//        return o1.getName().compareTo(o2.getName());
+    }
+}
